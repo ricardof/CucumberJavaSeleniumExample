@@ -26,7 +26,8 @@ Make sure to update PATH variable, append Maven bin folder.
 * Windows
 
 ## Supported browsers
-* Chrome
+* Chrome  
+*Exceptionally, for the sake of simplicity, chromedriver_win32 version 2.20 binary has been included with source control.*
 
 ## How to use
 Using the command-line, navigate to the project's root directory and run:
