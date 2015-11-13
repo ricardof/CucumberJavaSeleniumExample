@@ -10,16 +10,16 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class BagContentsSteps {
     String itemId;
+    Actions actions;
 
     protected WebDriver driver;
 
@@ -27,7 +27,22 @@ public class BagContentsSteps {
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "resources/driver/chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().setPosition(new Point(0, 0));
+
+        int width;
+        int height;
+        try {
+            width = Integer.parseInt(System.getProperty("width"));
+            height = Integer.parseInt(System.getProperty("height"));
+        } catch (Exception e) {
+            // Default browser windows size.
+            width = 1080;
+            height = 720;
+        }
+        driver.manage().window().setSize(new Dimension(width, height));
+
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        actions = new Actions(driver);
         driver.get("http://www.marksandspencer.com/");
     }
 
@@ -36,13 +51,17 @@ public class BagContentsSteps {
         // Search for "shirt".
         WebElement searchField = driver.findElement(By.cssSelector("input#global-search"));
         Assert.assertNotNull(searchField);
+        scrollToElement(searchField);
         searchField.sendKeys("shirt");
-        driver.findElement(By.cssSelector("input#goButton.submit.enabled")).click();
+        WebElement searchButton = driver.findElement(By.cssSelector("input#goButton.submit.enabled"));
+        scrollToElement(searchButton);
+        searchButton.click();
 
         // Click first result.
         List<WebElement> searchResultsView = driver.findElements(By.cssSelector("div.product-listing-container li"));
         Assert.assertNotNull(searchResultsView);
         Assert.assertTrue(searchResultsView.size() > 0);
+        scrollToElement(searchResultsView.get(0));
         searchResultsView.get(0).click();
 
         // Select first available colour and size.
@@ -54,6 +73,7 @@ public class BagContentsSteps {
         boolean sizeIsSelected = false;
 
         for (WebElement colour : coloursList) {
+            scrollToElement(colour);
             colour.click();
             colourIsSelected = true;
 
@@ -63,6 +83,7 @@ public class BagContentsSteps {
                 if (sizesList.size() > 0) {
                     for (WebElement size : sizesList) {
                         if (!size.getAttribute("class").equals("out-of-stock")) {
+                            scrollToElement(size);
                             size.click();
                             sizeIsSelected = true;
                             break;
@@ -84,6 +105,7 @@ public class BagContentsSteps {
         // Click add to bag.
         WebElement addToBag = driver.findElement(By.cssSelector("li.linear-journey.req.addbag input[type=submit][value=\"add to bag\"]"));
         Assert.assertNotNull(addToBag);
+        scrollToElement(addToBag);
         addToBag.click();
         itemId = addToBag.getAttribute("id").replace("basket_","").toLowerCase();
 
@@ -92,7 +114,10 @@ public class BagContentsSteps {
     @When("^I view the contents of my bag$")
     public void i_view_the_contents_of_my_bagy() throws Throwable {
         // Click your bag.
-        driver.findElement(By.cssSelector("ul.site-tools a.header-link")).click();
+        WebElement topBagButton = driver.findElement(By.cssSelector("ul.site-tools a.header-link"));
+        Assert.assertNotNull(topBagButton);
+        scrollToElement(topBagButton);
+        topBagButton.click();
     }
 
     @Then("^I can see the contents of the bag include a shirt$")
@@ -120,5 +145,15 @@ public class BagContentsSteps {
     @After
     public void closeBrowser() {
         driver.quit();
+    }
+
+    public void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

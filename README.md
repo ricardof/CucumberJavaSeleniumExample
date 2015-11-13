@@ -31,8 +31,13 @@ Make sure to update PATH variable, append Maven bin folder.
 
 ## How to use
 Using the command-line, navigate to the project's root directory and run:
+*Default browser dimensions are 1080Wx720H*
 ```
 mvn test
+```
+With custom browser dimensions:
+```
+mvn test -Dwidth=1440 -Dheight=900
 ```
 
 ## References
