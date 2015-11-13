@@ -1,8 +1,8 @@
 # CucumberJavaSeleniumExample
-UI Acceptance automated testing example, using Cucumber + Java + Selenium.
+UI Acceptance **automated testing** example, using **Cucumber** + **Java** + **Selenium**.
 
 Marks and Spencer specialises in the selling of clothing, home products and luxury food products.
-The following UI Acceptance test scenario is used to test [Marks & Spencer website] (http://www.marksandspencer.com/).
+The following UI Acceptance test scenario is used to test [Marks & Spencer website] (http://www.marksandspencer.com/):
 ```
 Feature: As a customer, I wish to view the contents of my bag prior to checkout
 
@@ -13,11 +13,10 @@ Feature: As a customer, I wish to view the contents of my bag prior to checkout
 ```
 
 ## Requirements
-###Java 7, JDK 1.7
+*Java 7, JDK 1.7
 Find it [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 After installing it, make sure JAVA_HOME is added to PATH.
-
-###Maven
+*Maven
 It requires JD 1.7 or above.
 Find it [here](https://maven.apache.org/download.cgi)
 Make sure to update PATH variable, append Maven bin folder.
@@ -31,7 +30,7 @@ Make sure to update PATH variable, append Maven bin folder.
 ## How to use
 Using the command-line, navigate to the project's root directory and run:
 ```
-mvn test**
+mvn test
 ```
 
 ## References
