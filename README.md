@@ -30,7 +30,7 @@ Make sure to update PATH variable, append Maven bin folder.
 *Exceptionally, for the sake of simplicity, chromedriver_win32 version 2.20 binary has been included with source control.*
 
 ## How to use
-Using the command-line, navigate to the project's root directory and run:
+Using the command-line, navigate to the project's root directory and run:  
 *Default browser dimensions are 1080Wx720H*
 ```
 mvn test
