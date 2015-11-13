@@ -15,7 +15,8 @@ Feature: As a customer, I wish to view the contents of my bag prior to checkout
 ## Requirements
 *Java 7, JDK 1.7  
 Find it [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)  
-After installing it, make sure JAVA_HOME is added to PATH.
+After installing it, make sure JAVA_HOME is added to PATH.  
+
 *Maven
 It requires JD 1.7 or above.  
 Find it [here](https://maven.apache.org/download.cgi)  
